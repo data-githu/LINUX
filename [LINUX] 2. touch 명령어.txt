@@ -1,0 +1,12 @@
+2. touch 명령어
+
+파일의 용량이 0인 파일을 생성하는 명령어 입니다.
+
+예 : # touch a1.txt
+	# ls -l a1.txt <----- a1.txt 의 용량 확인
+
+문제11. 집에서 아래의 파일들을 크기를 0으로 해서 생성하시오!
+a.txt b.txt c.txt d.txt e.txt f.txt
+
+# touch a.txt b.txt c.txt d.txt e.txt f.txt
+# ls -l *.txt <-- 확장자가 .txt 인 파일들 확인

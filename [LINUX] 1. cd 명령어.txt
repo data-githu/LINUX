@@ -1,0 +1,76 @@
+1. cd 명령어
+
+Change Directory 명령어로 디렉토리를 이동하는 명령어 입니다.
+
+예제 : 
+# whoami <-- 접속한 내가 누구인지 확인하는 명령어
+# pwd <-- 현재 내가 있는 디렉토리를 확인하는 명령어
+ (print working directory)
+# ls <-- list 명령어로 현재 디렉토리에 있는 폴더와 파일을 확인
+# cd Documents <-- Documents 디렉토리로 이동
+# cd .. <-- 뒤로 이동 (그 전 디렉토리로 이동)
+		
+문제1. 현재 디렉토리에서 Desktop 디렉토리로 이동하시오!
+# cd Desktop
+# pwd
+
+문제2. 다시 뒤로 이동하시오!
+# cd ..
+※ 설명:  cd 하고 한칸 띄고 .. (점점)
+
+문제3. 나의 집으로 가시오!
+# whoami 
+# cd <-- 내가 어디에 있는 cd 하고 엔터치면 바로 집으로 갑니다.
+# pwd
+결과 : /root <-- 여기가 root의 집입니다.
+
+※ 경로(path) 에는 크게 2가지 경로가 있습니다.
+	1. 절대경로 : cd 내가 가고자 하는 정확한 위치
+	예 : # pwd
+		# cd /root / Desktop
+		
+	2. 상대경로 : 나의 현재위치를 상대로 이동하겠다.
+	예 : # cd .. <-- 나의 현재위치를 상대로 상위 디렉토리로 이동하겠다.
+	
+문제4. 집으로 가서 집에서 test01 이라는 폴더를 생성하시오!
+# cd
+# mkdir test01
+# ls
+
+문제5. test01 폴더(디렉토리) 로 이동하시오!
+# cd / root/ test01
+# cd
+
+문제6. 집에 가서 test02 라는 폴더(디렉토리)를 생성하고 test02로 이동하시오!
+# cd
+# mkdir test02
+# cd test02
+# cd
+
+문제7. 집에서 test03 디렉토리를 만들고 test03 디렉토리로 가서 test04 디렉토리를 만들고 test04 디렉토리로 이동하시오!
+# cd
+# mkdir test03
+# cd test03
+# mkdir test04
+# cd test04
+# pwd
+# cd
+
+문제8. 집에서 test03 밑에 test04 로 이동하시오!
+# cd
+# cd test03/ test04
+# pwd
+
+문제9. 지금 이동한 디렉토리에서 방금 이동하기 전 디렉토리로 바로 이동하시오
+# pwd
+# cd - 
+# pwd
+
+문제10. 집에서 test07 디렉토리를 만들고 test07 디렉토리로 이동하고 거기서 test08 디렉토리를 만들고 test08 디렉토리로 이동한 후에 test09 디렉토리를 만들고 test09 디렉토리로 이동하시오!
+# cd
+# mkdir test07
+# cd test07
+# mkdir test08
+# cd test08
+# mkdir test09
+# cd test09
