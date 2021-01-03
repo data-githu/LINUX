@@ -1,0 +1,7 @@
+■ 리눅스 시스템에서 인터넷 설정
+
+ 1. 리눅스의 시작 버튼을 누른다
+ 2. system  tools 의 settings 를 누른다. 
+ 3. network 텝을 클릭합니다. 
+ 4. Ethernet 위에것을 on 으로 켠다.
+ 5. firefox 를 켜고 naver 로 접속합니다. 
