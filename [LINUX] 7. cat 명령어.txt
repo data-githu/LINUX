@@ -1,0 +1,16 @@
+7. cat 명령어
+파일의 내용을 화면에 출력하는 명령어
+
+예제 : 
+# cat emp.txt
+
+문제24. 스티븐 잡스 연설문(jobs.txt) 를 /root 밑에 올리시오!
+
+문제25. jobs.txt 를 cat 으로 여시오.
+# cd
+# cat  jobs.txt
+
+문제26.  jobs.txt 를 천천히 읽을수 있도록 more 명령어로 여시오 !
+ #  more  jobs.txt 
+
+ 중간에 그만 빠져나오고 싶다면 q 를 누르면 됩니다. 

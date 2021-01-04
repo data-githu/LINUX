@@ -1,0 +1,23 @@
+6. alias 명령어
+자주 수행하는 명령어들을 쉽게 사용할 수 있도록 설정하는 명령어
+
+예제 : 
+# pwd
+# alias p='pwd'
+# p
+
+설명 : pwd 라고 다 쓰지 않고 p만 써서 수행하겠다.
+
+문제20. ls - l 명령어를 그냥 l 로 쉽게 수행할 수 있도록 alias 를 만드시오!
+# alias l = 'ls -l'
+# l
+
+문제21. 다시 alias 를 지우고 싶다면?
+# unalias p
+
+문제22. alias 로 등록된 목록을 확인하시오!
+# alias
+
+문제23. l 로 만들었던 alias도 지우시오!
+# unalias l
+# alias

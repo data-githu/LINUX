@@ -1,0 +1,21 @@
+8. redirection 명령어
+ 화면에 출력되는 결과를 파일로 저장하는 명령어 
+
+ >>  :   없으면 파일을 생성하고 있으면 기존 파일뒤에 덧붙이겠다.
+   >  :   파일을 생성하겠다. 기존에 파일이 있으면 그냥 덮어 쓰겠다.
+
+예:  
+# cat  emp.txt   >> emp2.txt
+#  ls  -l  emp*.txt
+#  cat  emp2.txt
+
+설명:  cat emp.txt 로 본 화면의 결과를 emp2.txt 로 저장하겠다. 
+
+문제27.  jobs.txt 를 cat 으로 열어서 본 결과를 jobs2.txt 로 저장하시오 !
+#  cat  jobs.txt  >>  jobs2.txt
+
+문제28.  집에서 ls -l 로 본 결과를  list.txt 로 저장하시오 !
+#  cd
+#  ls -l   >>  list.txt   
+#  ls -l  list.txt
+#  cat  list.txt
