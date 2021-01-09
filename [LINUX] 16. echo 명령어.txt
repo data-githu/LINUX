@@ -1,0 +1,157 @@
+16. echo 명령어
+출력하고자 하는 글자를 출력할 때 사용하는 명령어
+파이썬의 print 와 같은 명령어 입니다.
+변수안의 글자를 출력할 때 사용하는 명령어
+
+예제 : 
+# a=1
+# echo $a
+# b='scott'
+# echo $b
+# echo 'yahoo~~'
+
+설명:   변수안에 있는 값을 출력할때는 $ 를 앞에 붙여줘야합니다. 
+
+문제70. 직업을 물어보게하고 직업을 입력하면 해당 직업을 갖는 사원들의 이름과 직업이 출력되게 하시오!
+echo -n 'Enter the job name ~~~'
+read job
+grep -i $job emp.txt | awk '{print $2, $3}'
+
+설명 : -n은 엔터와 같은 역할입니다.
+
+# sh  job2.sh
+Enter the job name ~~~ salesman
+salesman이 job에 입력되었습니다.
+$를 job 앞에 써줘야 job 을 변수로 인정하는것입니다. 
+$를 안써주면 그냥 영어 철자 job 일 뿐입니다. 
+
+위의 리눅스 명령어 여러개를 파일로 저장해서 한번에 수행하는 방법
+# vi job2.sh
+
+vi 편집기 화면으로 들어가서 위의 3줄을 복사해서 붙여넣으려면 알파벳 i를 누르고 아래쪽에 insert가 나오는지 확인한다. 
+그리고 shift + insert 를 눌러서 붙여넣고 저장을 해야하는데 저장하려면 esc 키를 눌러서 아래쪽에 insert를 사라지게 하고 대문자 Z를 두번 연속으로 눌러서 저장하고 빠져나오면 됩니다. 
+
+#sh job2.sh
+설명 : 확장자가 .sh 는 쉘스크립트 입니다.
+쉘스크립트는 리눅스 명령어를 모아놓은 것입니다.
+쉘스크립트를 잘 작성할 줄 알면 업무의 많은 부분을 자동화 할 수 있습니다.
+sh 명령어로 쉘스크립트를 실행합니다.
+
+문제71. 아래와 같이 부서번호를 물어보게 하고 부서번호를 입력하면 해당 부서번호인 사원들의 이름과 월급과 부서번호가 출력되게 하시오!
+# vi deptno.sh
+
+echo -n 'Enter the deptno ~~~'
+read deptno
+grep -i $deptno emp.txt | awk '{print $2, $6, $8}'
+
+# sh deptno.sh
+
+# vi deptno.sh
+
+echo -n 'Enter the deptno ~~~'
+read deptno
+awk -v num=$depnto '$8 == num {print $2, $6, $8}' emp.txt
+
+# sh deptno.sh
+
+설명 : awk 의 -v옵션은 변수의 값을 다른 변수에 할당할 때 사용하는 옵션입니다 .
+
+문제72. 이름이 scott 인 사원의 이름과 월급을 출력하시오!
+# awk '$2 == toupper("scott") {print $2, $6}' emp.txt
+
+문제73. 이름을 물어보게 하고 이름을 입력하면 해당 사원의 이름과 월급이 출력되게 쉘스크립트를 만들고 아래와 같이 실행되게 하시오!
+# vi find_sal.sh
+
+echo -n 'Enter the ename '
+read ename
+awk -v num=$ename '$2==toupper(num) {print $2, $6}' emp.txt
+
+# sh find_sal.sh
+
+문제74. dept.txt를 리눅스 서버에 올리세요.
+# ls -l dept.txt
+# cat dept.txt
+
+문제75. dept.txt에서 부서번호가 10번의 부서위치가 어딘지 출력하시오!
+# awk '$1==10 {print $3}' dept.txt
+
+문제76. scott이 근무하는 부서위치를 출력하시오!
+SQL> 
+select d.loc
+	from emp e, dept d
+	where e.deptno = d.deptno and e.ename = 'SCOTT';
+
+# deptno = ` awk '$2==toupper("scott") {print $8}' emp.txt`
+
+설명 : 양쪽 역따옴표 안쪽에 있는 명령어로 수행한 결과를 deptno 변수에 할당하겠다.
+
+awk -v num=$deptno '$1==num {print $3}' dept.txt
+
+문제77. 위의 스크립트를 이용해서 shell script 를 생성해서 아래와 같이 실행되게 하시오!
+# sh find_loc.sh
+Enter the ename ~~ scott
+DALLAS
+
+# vi find_loc.sh
+
+echo -n "Enter the ename"
+read ename
+deptno = `awk -v num1=$ename '$2==toupper("num1") {print $8}' emp.txt`
+awk -v num=$deptno '$1==num {print $3}' dept.txt
+
+#sh find_loc.sh
+
+
+문제78. 직업이 salesman인 사원들의 월급들을 출력하시오!
+# awk '$3==toupper("salesman") {print $6}' emp.txt
+
+문제79. 위의 결과를 다시 출력하는데 월급 앞에 이름도 같이 출력하시오!
+# awk '$3==toupper("salesman") {print $2, $6}' emp.txt
+
+문제80. 위의 스크립트를 이용해서 shell script 를 만드는데 직업을 물어보게 하고 직업을 입력하면 해당 직업인 사원들의 이름과 월급이 출력되게하시오!
+# sh find_job.sh
+
+Enter the job ~~ salesman
+
+MARTIN 1250
+ALLEN 1600
+TURNER 1500
+WARD 1250
+
+# vi find_job.sh
+
+echo -n 'Enter the job~~ '
+read job
+awk -v num=$job '$3==toupper(num) {print $2, $6}' emp.txt
+
+# sh find_job.sh
+
+모금융회사에서 데이터 분석을 할 때 고객들을 나이대별로 (20대, 30대, 40대) 
+별도의 텍스트 파일을 생성할 때 유용하게 사용하고 있습니다.
+
+예제 : 20대.txt, 30대.txt, 40대.txt
+
+문제81. 문제80번의 코드를 수정해서 직업을 물어보게 하고 직업을 입력하면 해당직원의 사원들의 모든 데이터가 다 출력되게 하시오!
+echo -n 'Enter the job~~ '
+read job
+awk -v num=$job '$3==toupper(num) {print $0}' emp.txt
+
+문제82. 직업을 물어보게하고 직업을 입력하면 해당 직업인 사원들의 모든 데이터로 텍스트 파일을 생성되게 하시오!
+Enter the job ~~ salesman
+# ls -l salesman.txt
+
+echo -n 'Enter the job~~ '
+read job
+awk -v num=$job '$3==toupper(num) {print $0}' emp.txt >> $job.txt
+
+문제83. 부서번호를 물어보게 하고 부서번호를 입력하면 해당 부서번호의 모든 사원의 데이터가 텍스트 파일로 생성되게 하시오!
+Enter the deptno~~ 10
+# ls -l 10.txt
+
+# vi dept.sh
+
+echo -n 'Enter the deptno~~ '
+read deptno
+awk -v num=$deptno '$8==num {print $0}' emp.txt >> $deptno.txt
+
+# sh dept.sh
