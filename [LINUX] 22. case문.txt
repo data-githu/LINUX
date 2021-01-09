@@ -1,0 +1,47 @@
+22. case문
+if 문과 유사한 리눅스의 쉘 스크립트 명령어 
+
+예제1.  예전에 만들었던 find_sal.sh 와 find_file.sh 가 잘 수행되는지 확인하시오 !
+# sh  find_sal.sh
+# sh  find_file.sh
+
+예제2. 아래의 스크립트를 먼저 메모장에서 작성하세요.
+echo " Press  number  1  for  confirm  employees sal
+             Press  number   2 for  confirm  to  search file "   
+
+echo - n  "Press  number "
+read  choice
+case  $choice   in  
+   1)
+       sh  /root/find_sal.sh ;;
+   2) 
+       sh  /root/find_file.sh ;;
+esac
+
+예제3.  /root 밑에서  vi  a.sh 를 열어서 위의 스크립트를 복사해서 붙여넣고 아래와 같이 실행하시오 !
+# cd
+#  vi  a.sh
+
+# sh  a.sh 
+
+문제106.  /root 밑에 있는 find_loc2.sh 를 실행해보시오 !
+# sh  find_loc2.sh
+
+문제107.  find_loc2.sh 를  위의 예제에서 만든 a.sh 의 3번으로 추가하시오 !
+# rm  a.sh
+# vi  a.sh
+
+echo " Press  number  1  for  confirm  employees sal
+ Press  number   2 for  confirm  to  search file 
+ Press  number  3  for  confirm  to  find  loc "   
+
+echo - n  "Press  number "
+read  choice
+case  $choice   in  
+   1)                   
+       sh  /root/find_sal.sh ;;
+   2) 
+       sh  /root/find_file.sh ;;
+   3)
+       sh  /root/find_loc2.sh ;;
+esac

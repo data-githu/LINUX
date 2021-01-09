@@ -1,0 +1,70 @@
+19. tar 명령어 
+파일을 압축하고 압축을 해제하는 명령어 
+
+예제:  1. 압축할 때
+         # tar  cvf  압축파일명  압축파일대상
+
+        2. 압축을 해제할 때
+         # tar  xvf  압축파일명  압축을 해제할 위치 
+
+※ 옵션
+c : compress,  여러개의 파일을 하나로 만들어라 ~
+v : view ,  압축되는 과정을 보여달라
+f : file, 생성되는 파일명을 지정
+x :  extract, 묶어있는 파일을 풀어줘라
+-C : 압축이 풀릴 위치를 지정 
+
+문제96. 집에서(/root) emp.txt 를 복사해서 emp1.txt, emp2.txt, emp3.txt 를 생성하시오. 
+# cd
+#  cp  emp.txt   emp1.txt  
+#  cp  emp.txt   emp2.txt
+#  cp  emp.txt   emp3.txt 
+#  ls  -l  emp*.txt
+
+문제97.  현재 디렉토리에 emp 로 시작하는 모든 text 파일을 empall.tar 라는 이름으로 압축하시오.
+#  tar  cvf   empall.tar   ./emp*.txt
+                                    ↑
+                              현재 디렉토리 
+
+ # ls  -l  empall.tar  
+
+문제98.  현재 디렉토리에 test200 이라는 디렉토리를 만들고  empall.tar 파일을  test200 디렉토리 밑에 복사하시오.
+# cd 
+# mkdir  test200
+# cp  empall.tar  ./test200/
+
+문제99.  현재 디렉토리에서 test200 디렉토리로 이동해서 empall.tar 파일의 압축을 해제하시오. 
+# cd
+# cd  ./test200
+# pwd  
+# tar  xvf  empall.tar 
+# ls 
+
+문제100.  /root 밑에 있는 dept.txt 를 dept1.txt, dept2.txt, dept3.txt 로 복사하고 /root 밑에 있는 dept 로 시작하는 텍스트 파일들을 deptall.tar  로 압축한 후에  /root 밑에 test500 이라는 폴더를 만들고  deptall.tar 를 test500 밑에 복사하고 압축을 해제하시오.
+# cd
+# cp  dept.txt  dept1.txt
+# cp  dept.txt  dept2.txt
+# cp  dept.txt  dept3.txt
+# tar  cvf  deptall.tar  ./dept*.txt 
+# mkdir  test500
+# cp  deptall.tar  ./test500/
+# cd  ./test500
+# tar  xvf  deptall.tar 
+# ls
+
+문제101.  윈도우에서 emp.txt 와 dept.txt 를 압축을 합니다.  압축파일명은  fileall.tar  로 압축하시오 !
+ 반디집으로 압축하는데 확장자를 tar 로 해서 압축하세요 ~
+
+문제102.  fileall.tar  압축파일을 리눅스에 바탕화면에 가져다 놓으세요. 바탕화면에  HOME 폴더 안에 fileall.tar 를 복사해 놓으세요.
+
+
+문제103.  /root 밑에 있는 fileall.tar 를 압축해제하세요 ~
+ # cd  
+ # tar  xvf  fileall.tar 
+
+문제104.  윈도우에서   jobs.txt 를 jobs2.txt 로 복사한 후에 두개의 파일을  jobs.zip 으로 압축하고 리눅스 서버에 바탕화면에 home 폴더에 넣으시오 !
+
+만약에 리눅스 서버의 바탕화면 디렉토리를 터미널창에서 이동하고 싶다면 ?
+#  cd  /root/Desktop
+#  pwd
+#  ls

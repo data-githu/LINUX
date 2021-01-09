@@ -1,0 +1,14 @@
+21. sed 명령어
+grep 명령어는 파일의 특정 내용을 검색하는 기능을 갖는 다면 sed 명령어는 검색뿐만 아니라 내용을 변경할 수 도 있습니다. 
+
+예제:  
+#  cd
+#  sed  's/KING/yyy/'  emp.txt
+
+설명: 
+emp.txt 에서  KING 을 yyy 로 변경하겠다. 그런데 위의 명령어는 변경해서 보여주는것이지 실제로 데이터가 변경된 것은 아닙니다. 
+
+ #  cat  emp.txt
+
+문제105. 위에서 KING 이름을 yyy 변경해서 보여주고 있는 결과화면을 저장해서 emp900.txt 로 저장되게 하시오.
+#  sed  's/KING/yyy/'  emp.txt  >>  emp900.txt

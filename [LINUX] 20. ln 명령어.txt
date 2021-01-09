@@ -1,0 +1,11 @@
+20. ln 명령어
+os  윈도우의 바로가기 기능과 유사함
+os 윈도우 이용할 때 바탕화면에서 바로가기 버튼을 가져다 두면 바로가기만 누르면 빨리 실행할 수 있게 되므로 자주 실행하는 문서의 경우 바탕화면에 바로가기를 가져다 두면 편리합니다. 이 기능이 리눅스 ln 명령어로 지원이 됩니다. 
+
+예제:
+ #  cd
+ #  ls  -l  find_job.sh
+ #  cat  find_job.sh
+ #  ln  -s  /root/find_job.sh    /root/Desktop/find_job.sh
+
+설명:  /root 밑의 find_job.sh 를  바탕화면(/root/Desktop) 에 find_job.sh로 바로가기를 생성하겠다.

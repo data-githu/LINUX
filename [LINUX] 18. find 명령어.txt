@@ -1,0 +1,41 @@
+18. find 명령어
+검색하고자 하는 파일을 찾을 때 사용하는 명령어
+예 :
+# find 디렉토리 -name 파일명 -print
+
+# find /root -name 'emp.txt' -print
+
+설명 : /root 디렉토리 밑에 emp.txt 라는 파일이 있는지 검색하시오!
+/root/Desktop/emp.txt
+/root/test51/emp.txt
+/root/emp.txt
+
+문제92. 집에서 (/root) test100 이라는 디렉토리를 만들고 /root/test100 디렉토리 밑에 emp.txt 를 복사하시오!
+
+# cd
+# pwd
+# mkdir test100
+# cd /root/emp.txt /root/ test100/emp.txt
+# cd test100
+# ls
+# cd
+
+설명 : /root/emp.txt 를 /root/test100/emp.txt 로 복사하시오.
+
+문제93. /root 밑에 emp.txt 가 있는지 find 하시오!
+# find  /root  -name  'emp.txt'  -print 
+
+문제94. 위의 문제93번을 다시 수행하는데 /root 밑에 하위디렉토리까지 검색하지말고 그냥 바로 /root 밑에 emp.txt 가 있는지 검색하시오!
+# find/ root -maxdepth 1 -name 'emp.txt' -print
+
+문제95. 위의 명령어를 이용해서 아래와 같이 검색을 편하게 할 수 있도록 shell 스크립트를 만드시오!
+# sh find_file.sh
+Enter the file name:
+Enter the maxdepth:
+
+# vi find_file.sh
+echo -n  'Enter  the  file  name:  '
+read file_name
+echo -n  'Enter  the  maxdepth:   '
+read max_depth
+find  /root  -maxdepth  $max_depth   -name  $file_name  -print

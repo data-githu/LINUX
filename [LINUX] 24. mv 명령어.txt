@@ -1,0 +1,17 @@
+24. mv 명령어
+파일의 이름을 바꾸거나 파일을 다른 디렉토리로 이동하는 명령어 
+
+예제 : 
+# cd  
+# mv  기존파일명   새로운 파일명 
+# mv  emp.txt   emp500.txt 
+# ls  emp500.txt 
+# mv  emp500.txt  ./backup/
+
+설명:  emp500.txt 를 현재 디렉토리 밑에 backup 밑에 이동
+
+문제109.  집으로 와서 backup2 폴더를 만들고 현재 디렉토리(집)에 있는 텍스트 파일들을 전부 backup2 폴더로 이동시키시오 !
+# cd
+# mkdir  backup2
+# mv  *.txt   ./backup2/
+#  ls  *.txt  

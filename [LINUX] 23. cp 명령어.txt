@@ -1,0 +1,15 @@
+23. cp 명령어
+파일을 복사하는 명령어 
+
+예제:  # cp  파일명    복사할 파일명 
+        # cp  위치/파일명    위치/복사할 파일명 
+        # cp  emp.txt   emp400.txt
+        # cp  /root/emp.txt   /root/test01/emp400.txt
+
+문제108.  /root/ 밑에 backup 이라는 폴더를 만들고  /root/ 밑에 있는 확장가 .txt 로 파일을 전부 거기로 다 복사하시오 !
+#  cd
+#  pwd
+#  mkdir  backup
+#  cp  *.txt   ./backup/ 
+#  cd ./backup
+#  ls 

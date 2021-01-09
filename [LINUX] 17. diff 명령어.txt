@@ -1,0 +1,11 @@
+17. diff 명령어
+두 파일간의 차이점을 찾아서 알려주는 명령어
+
+예 :  #diff emp.txt dallas.txt
+
+문제90. 어제 마지막 문제로 만들었던 dept.sh를 실행해서 20.txt 를 생성하시오!
+# sh  find_deptno.sh
+
+ Enter  the deptno: 20
+
+# cat  20.txt
