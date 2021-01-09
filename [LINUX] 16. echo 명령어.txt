@@ -155,3 +155,66 @@ read deptno
 awk -v num=$deptno '$8==num {print $0}' emp.txt >> $deptno.txt
 
 # sh dept.sh
+
+문제84. 이름이 scott 인 사원의 부서위치를 출력하시오!
+
+	1. scott의 부서번호를 emp.txt 에서 알아낸다.
+	2. scott의 부서번호로 부서위치(loc)를 dept.txt 에서 알아낸다.
+
+# deptno=`awk '$2 == toupper("scott") {print $8}' emp.txt`
+# echo $deptno
+# loc=`awk -v num=$deptno '$1==num {print $3}' dept.txt`
+# echo $loc
+
+문제85. 위의 스크립트를 이용해서 이름을 물어보게 하고 이름을 입력하면 해당 사원이 근무하는 부서위치가 출력되게 쉘 스크립트를 작성하시오!
+# sh find_loc.sh
+Enter the ename ~~ scott
+DALLAS
+
+# vi find_loc.sh
+
+echo -n "Enter the ename"
+read ename
+deptno = `awk -v num1=$ename '$2==toupper("num1") {print $8}' emp.txt`
+awk -v num=$deptno '$1==num {print $3}' dept.txt
+
+#sh find_loc.sh
+
+문제86. dept.txt 에서 DALLAS 의 부서번호를 출력하시오!
+# awk '$3==toupper("dallas")  {print $1}'  dept.txt 
+
+문제87. 위의 부서번호를 가지고 emp.txt 에서 해당 부서번호에서 근무하는 사원들의 이름과 직업을 출력하시오!
+# deptno = `awk $3==toupper("dallas") {print $1}' dept.txt`
+# awk -v num=$deptno '$8==num {print $2, $3}' emp.txt
+
+설명 : awk의 -v 옵션은 변수에 있는 값을 다른 변수에 담을 때 사용하는 옵션입니다.
+
+문제88. 위의 스크립트를 이용해서 부서위치를 물어보게하고 부서위치를 입력하면 해당 부서위치인 사원들의 이름과 월급이 출력되게 하시오!
+# sh  find_loc2.sh  
+
+Enter  the  loc:   dallas
+
+JONES MANAGER
+FORD ANALYST
+SMITH CLERK
+SCOTT ANALYST
+ADAMS CLERK
+
+# vi find_loc2.sh 
+
+echo -n 'Enter the loc : '
+read loc
+deptno=`awk -v num=$loc '$3==toupper(num) {print $1}' dept.txt`
+awk -v num=$deptno '$8==num {print $2, $3}' emp.txt
+
+# sh  find_loc2.sh  
+
+문제89. 위의 코드를 활용해서 해당 부서위치에 있는 사원들의 모든 정보를 담는 txt 파일을 만드는 코드를 구현하시오!
+#  vi find_loc3.sh
+
+echo -n 'Enter the loc : '
+read loc
+deptno=`awk -v num=$loc '$3==toupper(num) {print $1}' dept.txt`
+awk -v num=$deptno '$8==num {print $0}' emp.txt >>$loc.txt
+
+#  sh find_loc3.sh
