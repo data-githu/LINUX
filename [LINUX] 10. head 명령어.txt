@@ -1,0 +1,10 @@
+10. head 명령어
+문서의 처음 몇줄을 화면에 출력하는 명령어
+
+예제 :
+# head 출력줄수 파일명
+# head -5 jobs.txt
+
+문제29.  jobs.txt 의 위의 10줄을  jobs_10.txt 로 저장하시오 !
+#  head -10  jobs.txt  >>  jobs_10.txt
+#  cat  jobs_10.txt
