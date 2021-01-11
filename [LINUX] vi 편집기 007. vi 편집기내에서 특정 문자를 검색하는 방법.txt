@@ -1,0 +1,15 @@
+007. vi 편집기내에서 특정 문자를 검색하는 방법
+
+문법
+: /문자   
+
+예제:  
+$ vi  jobs.txt  
+:/about    엔터 
+ 
+n 을 누르면 전진하면서 다음 about 을 검색
+shift + n 을 누르면 후진하면서 이전 about 을 검색
+
+문제120. emp.txt 를 열어서 SCOTT 이라는 문자가 있는지 검색하시오 !
+$ vi  emp.txt
+ :/SCOTT  엔터

@@ -1,0 +1,51 @@
+010. vi 편집기 명령어 argdo 를 이용하여 여러개의 파일을 한번에 변경
+
+문제124. emp.txt를 emp1.txt ~ emp20.txt로 복사하시오
+(base) [scott@localhost ~]$ cp emp.txt emp1.txt
+(base) [scott@localhost ~]$ cp emp.txt emp2.txt
+(base) [scott@localhost ~]$ cp emp.txt emp3.txt
+(base) [scott@localhost ~]$ cp emp.txt emp4.txt
+(base) [scott@localhost ~]$ cp emp.txt emp5.txt
+(base) [scott@localhost ~]$ cp emp.txt emp6.txt
+(base) [scott@localhost ~]$ cp emp.txt emp7.txt
+(base) [scott@localhost ~]$ cp emp.txt emp8.txt
+(base) [scott@localhost ~]$ cp emp.txt emp9.txt
+(base) [scott@localhost ~]$ cp emp.txt emp10.txt
+(base) [scott@localhost ~]$ cp emp.txt emp11.txt
+(base) [scott@localhost ~]$ cp emp.txt emp12.txt
+(base) [scott@localhost ~]$ cp emp.txt emp13.txt
+(base) [scott@localhost ~]$ cp emp.txt emp14.txt
+(base) [scott@localhost ~]$ cp emp.txt emp15.txt
+(base) [scott@localhost ~]$ cp emp.txt emp16.txt
+(base) [scott@localhost ~]$ cp emp.txt emp17.txt
+(base) [scott@localhost ~]$ cp emp.txt emp18.txt
+(base) [scott@localhost ~]$ cp emp.txt emp19.txt
+(base) [scott@localhost ~]$ cp emp.txt emp20.txt
+
+문제125. emp1.txt ~emp20.txt 의 내용중에서 SALESMAN을 jjj 로 변경하시오!
+$ vi emp*.txt
+:argdo %s/SALESMAN/jjj/g | update
+21 files to edit
+
+설명:  argdo 를 이용하면 여러개의 파일을 한번에 변경할 수 있습니다. 
+
+문제126. 다시 emp1.txt ~emp20.txt 의 내용중에서  jjj 를 SALESMAN로 변경하시오!
+$ vi emp*.txt
+:argdo %s/jjj/SALESMAN/g | update
+21 files to edit
+
+문제127. jobs.txt 를 jobs1.txt ~ jobs10.txt 로 복사하시오.
+(base) [scott@localhost ~]$ cp jobs.txt jobs1.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs2.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs3.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs4.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs5.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs6.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs7txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs8.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs9.txt
+(base) [scott@localhost ~]$ cp jobs.txt jobs10.txt
+
+문제128. jobs1.txt ~ jobs10.txt 를 열어서 about 를 aaa 로 변경하시오!
+$ vi jobs.*.txt
+:argdo %s/about/aaa/g | update

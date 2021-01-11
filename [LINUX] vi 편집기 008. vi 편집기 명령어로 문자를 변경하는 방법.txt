@@ -1,0 +1,13 @@
+008. vi 편집기 명령어로 문자를 변경하는 방법 
+
+문법
+:%s/기존문자/변경할 문자/g
+
+예제:  emp.txt 에서  KING 을 aaa 로 변경하시오 !
+ $ vi  emp.txt
+ :%s/KING/aaa/g   엔터
+
+
+문제121. 그러면 다시 aaa 를 KING 으로 변경하시오 !
+$ vi emp.txt
+:%s/aaa/KING/g 엔터
