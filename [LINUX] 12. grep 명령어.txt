@@ -1,0 +1,27 @@
+12. grep 명령어
+파일 안에 포함된 특정 단어나 구문을 검색하는 명령어
+
+예제 : 
+# grep  '찾고싶은 단어'  파일명 
+# grep  'SCOTT'  emp.txt
+
+※ 위의 결과를 보면 emp.txt 에서 SCOTT 이 포함된 행만 출력하고 있습니다.
+
+예제 :  
+#  grep  -i  'scott'  emp.txt
+
+※ 설명:  -i 옵션은 대소문자를 구분하지 않겠다는 뜻입니다. 
+
+문제34. 직업이 SALESMAN 인 사원들의 모든 행을 출력하시오
+# grep -i 'salesman' emp.txt
+
+문제35. 직업이 SALESMAN인 사원들이 전부 몇명인지 출력하시오!
+# grep -i 'salesman' emp.txt | wc -l
+
+문제36. 직업이 SALESMAN 인 사원들의 이름과 월급을 출력하시오!
+# grep -i 'salesman' emp.txt | awk '{print $2, $6}'
+
+※ 설명 : awk 명령어는 열을 선택하는 명령어 입니다. $2는 emp.txt 에서 두번째 열입니다. 열과 열은 공백으로 구분되어져 있습니다.
+
+문제37. 직업이 ANALYST 인 사원들의 이름과 월급과 부서번호를 출력하시오!
+#grep - i 'analyst' emp.txt | awk '{print $2, $6, $8}'
