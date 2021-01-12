@@ -1,0 +1,118 @@
+권한 관리 명령어 004. chattr 명령어
+
+chattr 명령어를 이용하면 chmod 명령어 수행을 막을 수 있습니다.
+chattr 명령어는 최상위 계정인 root 에서만 수행할 수 있습니다.
+
+예제1 : scott 유저로 특정파일에 대해서 chmod 명령어를 수행하지 못하도록 막는 명령어를 설정하시오.
+
+(base) [root@localhost scott]# chattr +i emp.txt
+(base) [root@localhost scott]# lsattr emp.txt
+----i----------- emp.txt
+
+설명 : emp.txt 에 대해서 root 유저 외에 다른 유저는 삭제, 변경, 내용추가가 불가능하게 됩니다.
+
+(base) [root@localhost scott]# su - scott
+Last login: Tue Jan  5 10:26:14 KST 2021 on pts/0
+(base) [scott@localhost ~]$ chmod 777 emp.txt
+chmod: changing permissions of ‘emp.txt’: Operation not permitted
+
+설명 : 소유자가 자기 자신인 scott 임에도 불구하고 chmod 명령어가 수행되지 않습니다.
+
+예제2 : 다시 scott 이 emp.txt 를 chmod 할 수 있도록 설정하시오!
+(base) [scott@localhost ~]$ su -
+Password: 
+Last login: Tue Jan  5 11:16:37 KST 2021 on pts/0
+(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# chattr -i emp.txt
+(base) [root@localhost scott]# lsattr emp.txt
+---------------- emp.txt
+(base) [root@localhost scott]# su - scott
+Last login: Tue Jan  5 11:50:25 KST 2021 on pts/0
+(base) [scott@localhost ~]$ chmod 777 emp.txt
+(base) [scott@localhost ~]$ ls -l emp.txt
+-rwxrwxrwx. 1 scott scott 1033 Jan  4 14:54 emp.txt
+
+설명 : chattr 명령어는 언제 유용한가?
+이 파일은 우리 회사에 너무나도 중요한 파일이어서 root 만 변경할 수 있고 나머지 유저는 읽기만 할 수 있도록 하고 싶을때 유용합니다.
+
+문제155. emp.txt 에 대해서 아래와 같이 권한이 유지되게 하고 root 유저 외에는 chmod를 할 수 없도록 막으시오!
+(base) [scott@localhost ~]$ chmod 444 emp.txt
+(base) [scott@localhost ~]$ ls -l emp.txt
+-r--r--r--. 1 scott scott 1033 Jan  4 14:54 emp.txt
+(base) [scott@localhost ~]$ su - 
+Password: 
+Last login: Tue Jan  5 11:54:42 KST 2021 on pts/0
+(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# chattr +i emp.txt
+(base) [root@localhost scott]# lsattr emp.txt
+----i----------- emp.txt
+(base) [root@localhost scott]# su - scott
+Last login: Tue Jan  5 11:56:22 KST 2021 on pts/0
+(base) [scott@localhost ~]$ ls -l emp.txt
+-r--r--r--. 1 scott scott 1033 Jan  4 14:54 emp.txt
+(base) [scott@localhost ~]$ chmod 777 emp.txt
+chmod: changing permissions of ‘emp.txt’: Operation not permitted
+
+문제156. 다시 emp.txt 를 scott 유저가 chmod 할 수 있도록 변경하시오!
+(base) [scott@localhost ~]$ su - 
+Password: 
+Last login: Tue Jan  5 12:01:07 KST 2021 on pts/0
+(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# chattr -i emp.txt
+(base) [root@localhost scott]# lsattr emp.txt
+---------------- emp.txt
+(base) [root@localhost scott]# su - scott
+Last login: Tue Jan  5 12:01:58 KST 2021 on pts/0
+(base) [scott@localhost ~]$ chmod 777 emp.txt
+(base) [scott@localhost ~]$ ls -l emp.txt
+-rwxrwxrwx. 1 scott scott 1033 Jan  4 14:54 emp.txt
+
+문제157. dept.txt 에 대해서 chmod를 할 수 없도록 막으시오!
+(base) [scott@localhost ~]$ chmod 644 dept.txt
+(base) [scott@localhost ~]$ ls -l dept.txt
+-rw-r--r--. 1 scott scott 104 Jan  4 12:48 dept.txt
+(base) [scott@localhost ~]$ su -
+Password: 
+Last login: Tue Jan  5 12:09:16 KST 2021 on pts/0
+c(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# chattr +i dept.txt
+(base) [root@localhost scott]# lsattr dept.txt
+----i----------- dept.txt
+(base) [root@localhost scott]# su - scott
+Last login: Tue Jan  5 12:09:49 KST 2021 on pts/0
+(base) [scott@localhost ~]$ chmod 777 dept.txt
+chmod: changing permissions of ‘dept.txt’: Operation not permitted
+
+문제158. 숫자 1부터 20까지 출력하는 파이썬 코드를 작성하고 그 파이썬 코드의 권한이 아래와 같이 들어가게 하시오!
+(py389) [scott@localhost ~]$ vi a158.py
+for i in range(1,21):
+        print(i)
+
+(py389) [scott@localhost ~]$ vi a158.py
+(py389) [scott@localhost ~]$ python a158.py
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+(py389) [scott@localhost ~]$ ls -l a158.py
+-rw-rw-r--. 1 scott scott 33 Jan  5 12:13 a158.py
+(py389) [scott@localhost ~]$ chmod 766 a158.py
+(py389) [scott@localhost ~]$ ls -l a158.py
+-rwxrw-rw-. 1 scott scott 33 Jan  5 12:13 a158.py
+(py389) [scott@localhost ~]$ 

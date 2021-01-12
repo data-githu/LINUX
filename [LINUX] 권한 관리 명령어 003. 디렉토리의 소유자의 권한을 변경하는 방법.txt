@@ -1,0 +1,63 @@
+권한 관리 명령어 003. 디렉토리의 소유자의 권한을 변경하는 방법
+
+디렉토리의 소유자의 권한을 변경하게 되면 그 디렉토리에 있는 모든 파일들의 소유자를 한번에 변경할 수 있습니다.
+
+예제1 : scott 유저에서 /home/scott 밑에 test500 디렉토리를 생성합니다.
+(base) [scott@localhost ~]$ cd
+(base) [scott@localhost ~]$ pwd
+/home/scott
+(base) [scott@localhost ~]$ mkdir test500
+
+예제2 : test500 디렉토리 밑에 emp.txt 와 dept.txt 를 복사합니다.
+(base) [scott@localhost ~]$ cd
+(base) [scott@localhost ~]$ cp emp.txt ./test500/
+(base) [scott@localhost ~]$ cp dept.txt ./test500/
+(base) [scott@localhost ~]$ ls -l ./test500/
+total 8
+-rwxrwxr-x. 1 scott scott  104 Jan  5 11:12 dept.txt
+-rwxr-x--x. 1 scott scott 1033 Jan  5 11:12 emp.txt
+
+예제3 : test500 디렉토리의 소유자가 누구인지 확인합니다.
+(base) [scott@localhost ~]$ ls -ld test500
+drwxrwxr-x. 2 scott scott 37 Jan  5 11:12 test500
+
+예제4 : test500 디렉토리의 소유자를 root로 변경합니다.
+(base) [scott@localhost ~]$ su -
+Password: 
+Last login: Tue Jan  5 10:25:32 KST 2021 on pts/0
+(base) [root@localhost ~]# whoami
+root
+(base) [root@localhost ~]# pwd
+/root
+(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# ls -ld test500
+drwxrwxr-x. 2 scott scott 37 Jan  5 11:12 test500
+(base) [root@localhost scott]# chown root:root test500
+(base) [root@localhost scott]# ls -l
+
+설명 : test500 디렉토리의 소유자는 root로 변경했지만 test500 디렉토리 안에 emp.txt 와 dept.txt 의 소유자는 scott으로 그대로 유지
+
+예제5 : 만약 test500 디렉토리의 소유자를 root 로 변경하면서 test500 디렉토리에 있는 모든 텍스트 파일의 소유자도 같이 root로 변경하고 싶다면?
+# cd /home/scott
+# chown -R root:root test500
+base) [root@localhost scott]# cd /home/scott
+(base) [root@localhost scott]# chown -R root:root test500
+(base) [root@localhost scott]# ls -ld test500
+drwxrwxr-x. 2 root root 37 Jan  5 11:12 test500
+(base) [root@localhost scott]# ls -l test500
+total 8
+-rwxrwxr-x. 1 root root  104 Jan  5 11:12 dept.txt
+-rwxr-x--x. 1 root root 1033 Jan  5 11:12 emp.txt
+(base) [root@localhost scott]# 
+
+설명: -R 옵션을 붙이면 디렉토리의 소유자 뿐만 아니라 디렉토리 아래에 있는 모든 파일들과 하위 디렉토리의 소유자도 한번에 변경할 수 있습니다.
+
+문제154. /home/scott 밑에 있는 test500 디렉토리와 그 밑에 있는 파일의 소유자를 모두 scott으로 변경하시오!
+(base) [root@localhost scott]# cd /home/scott
+(base) [root@localhost scott]# chown -R scott:scott test500
+(base) [root@localhost scott]# ls -ld test500
+drwxrwxr-x. 2 scott scott 37 Jan  5 11:12 test500
+(base) [root@localhost scott]# ls -l test500
+total 8
+-rwxrwxr-x. 1 scott scott  104 Jan  5 11:12 dept.txt
+-rwxr-x--x. 1 scott scott 1033 Jan  5 11:12 emp.txt

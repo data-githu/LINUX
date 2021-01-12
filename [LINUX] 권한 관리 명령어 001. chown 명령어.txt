@@ -1,0 +1,55 @@
+권한 관리 명령어 001. chown 명령어
+
+파일이나 디렉토리의 소유자를 변경하는 명령어
+
+예 : 소유자를 확인하는 방법
+(base) [scott@localhost ~]$ ls -l emp.txt
+-rwxrwxrwx. 1 root root 1033 Jan  4 14:54 emp.txt
+
+예 : root 접속해서 emp.txt 의 소유자를 scott 으로 변경한다.
+(base) [scott@localhost ~]$ ls -l emp.txt
+-rwxrwxrwx. 1 root root 1033 Jan  4 14:54 emp.txt
+(base) [scott@localhost ~]$ su -
+Password: 
+Last login: Mon Jan  4 16:22:50 KST 2021 on pts/0
+(base) [root@localhost ~]# pwd
+/root
+(base) [root@localhost ~]# cd /home/scott
+(base) [root@localhost scott]# ls -ls emp.txt
+4 -rwxrwxrwx. 1 root root 1033 Jan  4 14:54 emp.txt
+(base) [root@localhost scott]# chown scott:scott emp.txt
+(base) [root@localhost scott]# ls -l emp.txt
+-rwxrwxrwx. 1 scott scott 1033 Jan  4 14:54 emp.txt
+
+설명 : 그룹명이란 권한관리를 쉽게 하기 위해서 그룹을 생성해서 그룹으로 권한관리를 합니다. 예를들면 다음 카페에서 우리반 학생들은 우수회원으로 올리고 우수회원이라는 그룹에 포함되어 있으면 다음 카페 게시판에 우리반 게시판은 모든지 다 볼 수 있는 권한이 생깁니다.
+
+문제143. dept.txt 의 소유자를 scott으로 변경하고 그룹도 scott으로 변경하시오!
+(base) [scott@localhost ~]$ su - 
+Password: 
+Last login: Tue Jan  5 10:09:27 KST 2021 on pts/0
+(base) [root@localhost ~]# ls -l dept.txt
+-rw-rw-rw-. 1 root root 104 Dec 31 18:03 dept.txt
+(base) [root@localhost ~]# chown scott:scott dept.txt
+(base) [root@localhost ~]# ls -l dept.txt
+-rw-rw-rw-. 1 scott scott 104 Dec 31 18:03 dept.txt
+
+문제144. 다시 scott 으로 유저 switch user 하세요.
+(base) [root@localhost ~]# su - scott
+Last login: Tue Jan  5 10:16:40 KST 2021 on pts/0
+(base) [scott@localhost ~]$ whoami
+scott
+
+문제145. emp.txt 의 권한을 아래와 같이 나타나게 하시오!
+$ls -l emp.txt
+_rwxr-xr-x 1 scott scott emp.txt
+
+(base) [scott@localhost ~]$ chmod g-w,o-w emp.txt
+(base) [scott@localhost ~]$ ls -l emp.txt
+-rwxr-xr-x. 1 scott scott 1033 Jan  4 14:54 emp.txt
+
+문제146. dept.txt 도 emp.txt 와 권한이 같도록 설정하시오!
+(base) [scott@localhost ~]$ chmod g-w,o-w dept.txt
+
+문제147. dept.txt 의 그룹과 기타유저의 권한을 모두 없애시오.
+(base) [scott@localhost ~]$ chmod g-rx,o-rx dept.txt
+
