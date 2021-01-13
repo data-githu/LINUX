@@ -1,0 +1,10 @@
+쉘스크립트 001. 쉘의 종류
+
+1. Bonue shell
+2. C shell
+3. Korn shell
+4. bash shell
+
+쉘스크립트 작성시에 맨위에다가 지금부터 작성하는 shell 스크립트 문법은 bash shell 이다 라고 명시하고 프로그래밍을 합니다.
+
+#!/bin/bash --> 쉘 중에 bash 쉘을 쓰겠다.
