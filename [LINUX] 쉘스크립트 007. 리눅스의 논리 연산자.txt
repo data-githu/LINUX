@@ -1,0 +1,66 @@
+쉘스크립트 007. 리눅스의 논리 연산자
+
+1. and ---> && 또는 -a
+2. or ---> || 또는 -o
+3. not ---> !
+
+예제 : 
+if [ $sal -lt 2000 ] && [ $job=="SALESMAN" ]; then
+
+if [ $sal -lt 2000 -a $job=="SALESMAN" ]; then
+
+문제175. emp.txt 에서 scott 의 월급을 출력하시오!
+$ awk '$2==toupper("SCOTT") {print $6}' emp.txt
+
+문제176. 위의 스크립트와 파라미터 변수를 이용해서 아래와 같이 실행되도록 쉘 스크립트를 작성하시오!
+$ sh find_sal.sh scott
+scott의 월급은 3000 입니다.
+
+$ vi find_sal.sh
+
+sal=`awk -v name=$1 '$2==toupper(name) {print $6}'  emp.txt`
+echo  "$1 의 월급은 $sal 입니다."
+
+$ sh find_sal.sh scott
+
+문제177. 위의 스크립트를 이용해서 아래와 같이 실행되게 쉘스크립트를 생성하시오!
+$ sh find_job.sh allen
+allen 의 직업은 SALESMAN 입니다.
+
+$ vi find_job.sh
+
+job=`awk -v name=$1 '$2==toupper(name) {print $3}'  emp.txt`
+echo  "$1 의 직업은 $job 입니다."
+
+$ sh find_job.sh allen
+
+
+문제178. 위의 스크립트와 if 문을 이용해서 아래의 쉘스크립트를 생성하시오. 월급을 2000을 기준으로 월급의 인상여부를 출력하게 하시오! (2000 이상이면 월급 인상대상자가 아닙니다.)
+$ sh find_sal.sh scott
+월급 인상 대상자가 아닙니다.
+
+$ sh find_sal.sh martin
+월급 인상 대상자 입니다.
+
+$ vi  find_sal.sh
+sal=`awk -v name=$1 '$2==toupper(name) {print $6}'  emp.txt`
+
+if [ $sal -lt 2000 ]; then
+echo "월급 인상 대상자 입니다."
+else
+echo "월급 인상 대상자가 아닙니다."
+fi
+
+문제179. 위의 스크립트를 수정해서 부서번호가 30번이고 월급이 2000 보다 작다면 "월급 인상 대상자 입니다." 를 출력하고 그렇지 않다면 "월급 인상 대상자가 아닙니다." 를 출력하시오!
+$ vi find_sal.sh
+
+sal=`awk -v name=$1 '$2==toupper(name) {print $6}' emp.txt`
+deptno=`awk -v name=$1 '$2==toupper(name) {print $8}' emp.txt`
+
+if [ ${sal:0:4} -lt 2000 -a ${deptno:0:2} -eq 30 ]; then
+echo "월급 인상 대상자 입니다."
+else
+echo "월급 인상 대상자가 아닙니다."
+fi
+
+$ sh  find_sal.sh  martin

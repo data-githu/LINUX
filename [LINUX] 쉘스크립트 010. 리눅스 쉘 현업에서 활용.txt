@@ -1,0 +1,56 @@
+쉘스크립트 010. 리눅스 쉘 현업에서 활용
+
+라이나 생명에서 데이터 분석을 했던 사례
+
+	1. 고객 데이터를 리눅스 쉘을 이용해서 데이터를 필터링 한다. (리눅스 쉘)
+	예 : 라이나 생명 고객 중에 40대만 따로 분리해서 text 파일을 생성한다.
+	2. 40대의 데이터를 가지고 군집분석(k-means) 을 한다.
+	3. 40대의 데이터를 가지고 연관분석(아프리오 알고리즘)
+
+새로운 보험 상품이 출시되었는데 보험 가입을 유도해야하는데 모든 보험 가입자들에게 다 연락을 해서 가입을 유도하는 것보다 보험 가입이 가능할 것 같은 고객들만 필터링해서 연락을 하는게 훨씬 효과적이기 때문이다.
+
+문제194. emp.txt 에서 직업이 SALESMAN 인 사원들의 data 만 가지고 SALESMAN.txt 라는 파일을 생성하시오!
+$ awk '$3==toupper("salesman") {print $0}' emp.txt >> salesman.txt
+
+설명 : 라이나 생명에서는 10대.txt, 20대.txt , 30대.txt, 40대.txt 이렇게 만들었듯이 우리도 emp.txt 를 가지고 salesman.txt, analyst.txt, clerk.txt, manager.txt 를 자동으로 다 만들어지게 하고 싶은것입니다.
+
+문제195. emp.txt 에서 직업을 출력하는데 중복을 제거해서 출력하시오
+$ awk '{print $3}' emp.txt | sort | uniq
+
+
+문제196. 위의 직업을 하나씩 불러와서 for loop 문에서 출력하는 코드를 작성하시오!
+$ vi for_jov.sh
+job=`awk '{print $3}' emp.txt | sort | uniq`
+
+for i in $job
+do
+ echo $i
+done
+
+문제197. 위의 스크립트를 이용해서 해당 직업의 사원들의 데이터만 직업을 이름으로 해서 아래와 같이 생성되게 하시오!
+$ sh generate_job.sh
+ $ ls    
+  salesman.txt    manager.txt    analyst.txt     clerk.txt   .....
+
+$ vi generate_job.sh
+job=`awk '{print $3}' emp.txt | sort | uniq`
+
+for i in $job
+do 
+	grep -i $i emp.txt >> $i.txt
+	cat $i.txt
+done
+
+문제198. 위의 스크립트를 이용해서 부서번호별 emp.txt 가 나눠지도록 스크립트를 생성하시오!
+ $ sh make_deptno.sh
+
+ $ ls  -lrt
+deptno10.txt   deptno20.txt   deptno30.txt 
+
+$ vi make_deptno.sh
+deptno=`awk '{print $8}' emp.txt | sort | uniq`
+
+for i in $deptno
+do 
+	awk -v num=$i '$8==num {print $0}' emp.txt >> deptno${i:0:2}.txt
+done

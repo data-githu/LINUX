@@ -1,0 +1,86 @@
+쉘스크립트 008. 리눅스 쉘에서 loop문 사용법
+
+1) for loop 문 사용법
+for 변수 in 값1, 값2, 값3
+do
+	반복할 문장
+done
+	
+예제 :
+$ vi for1.sh
+
+for i in {1..10}
+do
+	echo $i
+done
+
+$ sh for1.sh
+
+문제180. 구구단 2단을 출력하시오!
+$ vi for1.sh
+
+for i in {1..9}
+do
+	let gop=2*$i
+	echo "2 x $i = $gop"
+done
+
+$ sh for1.sh
+
+2) 이중루프문
+
+문제181. 구구단 전체를 출력하시오!
+for i in {2..9}
+do
+	for k in {1..9}
+	do
+		let gop=$i*$k
+		echo "$i x $k = $gop"
+	done
+done
+
+문제182. 아래의 별표를 출력하는 쉘스크립트를 작성하시오!
+$ sh  star.sh
+
+★
+★★
+★★★
+★★★★
+★★★★★
+
+star=""    # 더블 쿼테이션 마크 2개를 붙여서 null 값을 나타냄
+for i in {1..5}  # 1~5까지 loop 돌리겠다. 
+do              # 루프문 시작 부분
+   star="$star★"   #  star=""★  --->  star=★  3교시 신호 보냈습니다. 
+   echo $star        # star 변수에 있는 값을 출력해라 ~
+done           # 루프문 종료 부분
+
+설명: 
+ i = 1 일때 star=★
+ i = 2 일때 star=★★
+ i = 3 일때 star=★★★
+ i = 4 일때 star=★★★★
+ i = 5 일때 star=★★★★★
+
+
+
+문제183. 위의 코드를 수정해서 숫자를 물어보게 하고 숫자를 입력하면 해당 숫자만큼 ★ 이 출력되게 하시오!
+
+$ sh star.sh
+숫자를 입력하세요~ 5
+★
+★★
+★★★
+★★★★
+★★★★★
+
+echo -n "숫자를 입력하세요~"
+read num
+star="" 
+for i in `eval echo {1..$num}` 
+do  
+	star="$star★"  
+	echo $star 
+done 
+
+설명 : for 반복문 안에서 echo {1..$num} 이 실행되게 하려면 eval 을 써줘야 합니다.
