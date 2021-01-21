@@ -1,0 +1,33 @@
+■  spark - 스칼라에서 emp 테이블 생성하는 방법 
+1. hive SQL 을 스칼라에서 쓰겠다는 명령어
+scalar> val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
+
+2. emp 테이블을 생성하는 명령어 
+scalar>sqlContext.sql("create table  IF NOT EXISTS emp (empno int, ename string, job string, mgr int, hiredate string, sal int, comm int, deptno int) ROW FORMAT DELIMITED  FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'")
+
+3. emp 테이블에 emp2.txt 를 로드하는 명령어 
+scalar>sqlContext.sql("LOAD DATA LOCAL INPATH '/home/scott/emp2.txt' INTO TABLE emp")
+
+4. emp 테이블의 내용을 확인하는 명령어
+scala>  sql("select * from emp").show()
+
+5. emp 테이블이 전체 몇건인 확인하는 명령어
+
+scalar>  sql("select * from emp").count()
+res7: Long = 14
+
+
+*emp 테이블을 drop 하는 방법
+scalar>  sql("drop  table  emp")
+
+
+문제256.  dept2.csv 를 복사해서 dept2.txt 로 생성하고 스칼라에서 dept 테이블을 생성하시오 !
+
+(또다른 터미널창) $ cp  dept2.csv  dept2.txt
+(또다른 터미널창) $ cat  dept2.txt
+
+(스칼라 접속창) scalar> val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
+(스칼라 접속창) scalar> sql("drop  table  dept")
+(스칼라 접속창) scalar>  sqlContext.sql( "CREATE TABLE IF NOT EXISTS dept(deptno int, dname string, loc string) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',' LINES TERMINATED BY '\n'")
+(스칼라 접속창) scalar> sqlContext.sql("LOAD DATA LOCAL INPATH '/home/scott/dept2.txt' INTO TABLE dept")
+(스칼라 접속창) scalar>  sql("select * from dept").show()

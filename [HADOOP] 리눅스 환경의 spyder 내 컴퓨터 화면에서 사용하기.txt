@@ -1,0 +1,143 @@
+■ 리눅스 환경의 spyder 내 컴퓨터 화면에서 사용하기
+https://noooop.tistory.com/entry/ssh-%ED%99%98%EA%B2%BD%EC%97%90%EC%84%9C-GUI-%EC%82%AC%EC%9A%A9%ED%95%98%EA%B8%B0-X11-forwardingX11-%ED%8F%AC%EC%9B%8C%EB%94%A9
+
+루트로 접속해서 
+# cd /etc/ssh/
+# vi sshd_config
+
+X11Forwarding yes   <-- 맨 아래에 추가
+
+# yum  install  xclock
+# xclock 
+
+* putty 에서 xclock 여는 방법
+1. 도스창을 열고 ipconfig 해서 자기 자리의 ip 주소를 확인합니다. 
+
+ ipconfig
+
+이더넷 어댑터 이더넷:
+
+   연결별 DNS 접미사. . . . :
+   링크-로컬 IPv6 주소 . . . . : fe80::2dcb:2eaa:e5c0:16c0%4
+   IPv4 주소 . . . . . . . . . : 192.168.19.26
+   서브넷 마스크 . . . . . . . : 255.255.0.0
+   기본 게이트웨이 . . . . . . : 192.168.0.1
+
+2. 확인한 아이피 주소를 가지고 리눅스에서 아래와 같이 export 합니다.
+  ( putty 에서 scott 에서 수행합니다. )
+
+$ export DISPLAY=192.168.19.26:0.0
+$ xhost
+
+3. xclock 을 실행합니다.  ( mobaxterm 이 실행되어져 있어야합니다.)
+
+ $ xclock  
+
+설명: 위에서 수행할 mobaxterm 경고창이 안나오게 하려면 ?
+mobaxterm ---> settings ---> configuration --> x11 텝 ---> x11 remote access 을 full 로 변경 
+
+설명: mobaxterm 은 파일 전송하고 내려받는거 위주로 사용하고 대부분 작업을 putty 에서 수행하면 됩니다. 
+
+
+* 실수로 다 꺼버리거나 putty 를 다시 접속해야하는 상황
+1. putty 로 다시 scott 으로 접속하고 
+
+2. py389 를 activate 시킵니다. 
+$ conda  activate  py389
+
+3. DISPLAY 를 export 시키고 시계가 잘 열리는지 확인합니다.
+$ export DISPLAY=192.168.19.31:0.0
+$ xclock 
+$ spyder 
+
+
+
+문제274.  emp2.csv 를 리눅스의 spyder 에서 판다스로 불러오고 프린트하시오 !
+import   pandas   as  pd
+
+emp=pd.read_csv("/home/scott/emp2.csv", header=None)
+print(emp)
+
+문제275. emp2.csv 에서 emp 로 로드하고 사원 테이블의 월급을 바로 막대그래프로 시각화 하시오 !
+import   pandas   as  pd
+
+emp=pd.read_csv("/home/scott/emp2.csv", header=None)
+result = emp[5]
+result.index=emp[1]
+result.plot(kind='bar', color='red')
+
+
+문제276. Case.csv 를 스칼라로 로드해서 테이블 생성한 후에 지역, 지역별 코로나 감염자 수를 count 하고 결과를 가지고 파이썬에서 막대그래프로 시각화 하시오 ! 
+1. 스칼라에서 case_t 테이블 생성 및 Case.csv 로드
+ 
+scala> val sqlContext = new org.apache.spark.sql.hive.HiveContext(sc)
+ 
+scala> sqlContext.sql("""CREATE TABLE IF NOT EXISTS case_t( case_id  string,
+                                                                                 province  string,
+                                                                                 city  string,
+                                                                                 group  string,
+                                                                                 infection_case  string,
+                                                                                 confirmed  int,
+                                                                                 latitude  string,
+                                                                                 longitude  string)
+                                                                                 ROW FORMAT DELIMITED
+                                                                                 FIELDS TERMINATED BY ','
+                                                                                 LINES TERMINATED BY '\n'""")
+ 
+scala> sqlContext.sql("LOAD DATA LOCAL INPATH '/home/scott/Case.csv' INTO TABLE case_t")
+ 
+scala> sql("select * from case_t").show()
+ 
+scala> sql("""select province, sum(confirmed)
+                    from case_t
+                    group by province""").show()
+ 
+ 
+ 2. 스칼라에서 지역, 지역별 코로나 감염자 수를 count 하고 csv 파일로 뽑기
+ 
+scala> sql("""select province, sum(confirmed)
+                    from case_t
+                    group by province""").coalesce(1).write.option("header","true").option("sep",",").mode("overwrite").csv("/home/scott/dd")
+ 
+$ cd dd
+$ ls
+part-r-00000-0b95b79b-df53-47a7-9ab0-c8a7bb31bc25.csv  _SUCCESS
+ 
+$ mv part-r-00000-0b95b79b-df53-47a7-9ab0-c8a7bb31bc25.csv province.csv
+$ ls
+province.csv  _SUCCESS
+ 
+$ cat province.csv
+province,sum(confirmed)
+Sejong,49
+Ulsan,51
+Chungcheongbuk-do,60
+Gangwon-do,62
+Gwangju,43
+Gyeongsangbuk-do,1324
+Daegu,6680
+Gyeongsangnam-do,132
+Incheon,202
+Jeju-do,19
+Gyeonggi-do,1000
+Busan,156
+Daejeon,131
+Seoul,1280
+Chungcheongnam-do,158
+Jeollabuk-do,23
+Jeollanam-do,25
+ 
+ 
+ 3. 그 csv 파일을 파이썬에서 막대 그래프로 시각화 하세요 ~
+ 
+import pandas as pd
+ 
+emp = pd.read_csv("/home/scott/dd/province.csv")
+result = emp['sum(confirmed)']
+result.index=emp['province']
+result.plot(kind='bar', color='orange')
+ 
+ 
+ 4. 그래프 윈도우로 가져오기
+spyder 에서 plot1.png 이라는 이름으로 그래프 저장
+$ cp /home/scott/plot1.png /media/sf_data/
